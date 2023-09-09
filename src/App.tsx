@@ -3,8 +3,13 @@ import Section from "./components/Section";
 import Counter from "./components/Counter";
 import List from "./components/List";
 import Counter2 from "./components/Counter2";
+import Counter3 from "./components/Counter3";
+import { Counter4 } from "./components/Counter4";
+import { CounterProvider } from "./components/CounterContext";
+import { initialState } from "./components/CounterContext";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import ReducerComponent from "./components/ReducerComponent";
 
 function App() {
   // Lesson-1 States
@@ -25,7 +30,7 @@ function App() {
   // usestate<number> count(variable you can see left side will be a number)
   // usestate<Usser[] | null users variable will be either user type of array or null>
   const [count, setCount] = useState<number>(0);
-  const [users, setUsers] = useState<User[] | null>(null);
+  const [users] = useState<User[] | null>(null);
 
   // useeffect mostly deal with side effects , we use it when we fetch data in stuff and etc.
 
@@ -92,6 +97,32 @@ function App() {
           onClick={increase}
           memonumber={memo}
         ></Counter2>
+      </div>
+
+      <div style={{ border: "solid 2px white", borderRadius: "0.5em" }}>
+        <ReducerComponent></ReducerComponent>
+      </div>
+
+      <div style={{ border: "solid 2px white", borderRadius: "0.5em" }}>
+        <Counter3></Counter3>
+      </div>
+
+      <div style={{ border: "solid 2px white", borderRadius: "0.5em" }}>
+        <CounterProvider
+          counter={initialState.counter}
+          text={initialState.text}
+        >
+          <Counter4>
+            {(num: number) => {
+              return (
+                <>
+                  This is a children which is passed as a function and counter
+                  is {num}
+                </>
+              );
+            }}
+          </Counter4>
+        </CounterProvider>
       </div>
     </>
   );
